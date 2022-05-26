@@ -1,8 +1,15 @@
 from flask import Flask, render_template
+#Importar la librería de Flask-SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
 
 #Instanciar la aplicacion
 app = Flask(__name__)
+
+#Agregar la base de datos
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
 
 #Decorador para definir la ruta
 @app.route('/')
@@ -25,4 +32,5 @@ def borrar_lista():
 
 #main del programa
 if __name__ == "__main__":
+    db.create_all()
     app.run(debug=True)
