@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 #Importar la librería de Flask-SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
 
@@ -10,12 +10,18 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+#Agregamos una clase para nuestros elementos 
+class modelo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(100))
+    marca_complet = db.Column(db.Boolean)
 
 #Decorador para definir la ruta
 @app.route('/')
 #Función mostrar lista actual de las tareas pendiente
 def mostrar_lista_actual():
-    return render_template('base.html')
+    Lista_t = modelo.query.all()
+    return render_template('base.html', Lista_t=Lista_t)
 
 #Decorador para definir la ruta
 @app.route('/enviar')
