@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 
 #Instanciar la aplicacion
 app = Flask(__name__)
@@ -7,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 #Función mostrar lista actual de las tareas pendiente
 def mostrar_lista_actual():
-    return 'contro1'
+    return render_template('base.html')
 
 #Decorador para definir la ruta
 @app.route('/enviar')
