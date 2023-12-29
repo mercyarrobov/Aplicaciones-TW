@@ -7,6 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Lista de Tareas Pendientes</h1>
+    <form action="{{ url_for('agregar_elemento') }}" method="post">
+        <label for="nuevo_titulo">Nueva Tarea:</label>
+        <input type="text" name="nuevo_titulo" required>
+        <button type="submit">Agregar</button>
+    </form>
+    <ul>
+        {% for tarea in Lista_t %}
+            <li>
+                {{ tarea.titulo }}
+                <a href="{{ url_for('borrar_lista', id_tarea=tarea.id) }}">Borrar</a>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
